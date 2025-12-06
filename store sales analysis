@@ -66,6 +66,5 @@ for (int i = 0; i < days; i++)
             Console.WriteLine("Both sales datasets are EQUAL.");
         else
             Console.WriteLine("The sales datasets are NOT EQUAL.");
-            Console.WriteLine("\n===== END OF PROGRAM =====");
     }
 }
