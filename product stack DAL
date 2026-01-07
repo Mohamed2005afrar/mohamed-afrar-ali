@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+namespace ProductStackApp
+{
+    public class Product
+    {
+        public string ProductName { get; set; }
+        public int ProductID { get; set; }
+        public double Price { get; set; }
+        public Product(string name, int id, double price)
+        {
+            ProductName = name;
+            ProductID = id;
+            Price = price;
+        }
+    }
+    public class ProductStackDAL
+    {
+        private Stack<Product> productStack = new Stack<Product>();
+        public bool PushProduct(Product p)
+        {
+            if (p == null)
+                return false;
+            productStack.Push(p);
+            return true;
+        }
+        public bool PopProduct()
+        {
+            if (productStack.Count == 0)
+                return false;
+            productStack.Pop();
+            return true;
+        }
+        public double SearchProduct(int id)
+        {
+            foreach (Product p in productStack)
+            {
+                if (p.ProductID == id)
+                    return p.Price;
+            }
+            return -1;
+        }
+        public Product[] GetAllProducts()
+        {
+            return productStack.ToArray();
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ProductStackDAL dal = new ProductStackDAL();
+            dal.PushProduct(new Product("Laptop", 1, 75000));
+            dal.PushProduct(new Product("Mouse", 2, 500));
+            dal.PushProduct(new Product("Keyboard", 3, 1500));
+            Console.WriteLine("Search Product ID 2 Price: " + dal.SearchProduct(2));
+            dal.PopProduct();
+            Console.WriteLine("\nProducts in Stack:");
+            foreach (Product p in dal.GetAllProducts())
+            {
+                Console.WriteLine($"{p.ProductID} - {p.ProductName} - {p.Price}");
+            }
+            Console.ReadLine();
+        }
+    }
+}
